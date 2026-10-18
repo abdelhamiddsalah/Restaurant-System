@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.List;
 
 @Service
 public class RestaurantService {
@@ -64,5 +65,65 @@ public class RestaurantService {
         response.setCreatedBy(savedRestaurant.getCreatedBy());
 
         return response;
+    }
+
+    public List<RestaurantResponse> searchRestaurantsByName(String name) {
+
+        List<Restaurant> restaurants =
+                restaurantRepository.findByNameContaining(name);
+
+        return restaurants.stream()
+                .map(restaurant -> {
+                    RestaurantResponse response = new RestaurantResponse();
+
+                    response.setId(restaurant.getId());
+                    response.setName(restaurant.getName());
+                    response.setCuisineType(restaurant.getCuisineType());
+                    response.setContactInformation(restaurant.getContactInformation());
+                    response.setAverageRating(restaurant.getAverageRating());
+                    response.setGeoLocation(restaurant.getGeoLocation());
+                    response.setAddress(restaurant.getAddress());
+                    response.setOperatingHours(restaurant.getOperatingHours());
+                    response.setPhotos(restaurant.getPhotos());
+                    response.setReviews(restaurant.getReviews());
+                    response.setCreatedBy(restaurant.getCreatedBy());
+
+                    return response;
+                })
+                .toList();
+    }
+
+
+    public List<RestaurantResponse> findNearbyRestaurants(
+            double latitude,
+            double longitude,
+            String distance) {
+
+        List<Restaurant> restaurants =
+                restaurantRepository.findNearbyRestaurants(
+                        latitude,
+                        longitude,
+                        distance
+                );
+
+        return restaurants.stream()
+                .map(restaurant -> {
+                    RestaurantResponse response = new RestaurantResponse();
+
+                    response.setId(restaurant.getId());
+                    response.setName(restaurant.getName());
+                    response.setCuisineType(restaurant.getCuisineType());
+                    response.setContactInformation(restaurant.getContactInformation());
+                    response.setAverageRating(restaurant.getAverageRating());
+                    response.setGeoLocation(restaurant.getGeoLocation());
+                    response.setAddress(restaurant.getAddress());
+                    response.setOperatingHours(restaurant.getOperatingHours());
+                    response.setPhotos(restaurant.getPhotos());
+                    response.setReviews(restaurant.getReviews());
+                    response.setCreatedBy(restaurant.getCreatedBy());
+
+                    return response;
+                })
+                .toList();
     }
 }
