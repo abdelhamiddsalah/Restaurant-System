@@ -26,6 +26,7 @@ public class RestaurantService {
             RestaurantRequest request,
             String createdBy
     ) {
+        log.info("Creating restaurant with name: {}", request.getName());
         // 1. Convert Request DTO to Entity
         Restaurant restaurant = new Restaurant();
 
@@ -66,6 +67,9 @@ public class RestaurantService {
         response.setReviews(savedRestaurant.getReviews());
         response.setCreatedBy(savedRestaurant.getCreatedBy());
 
+
+        log.info("Restaurant created successfully with id: {}",
+                savedRestaurant.getId());
         return response;
     }
 
