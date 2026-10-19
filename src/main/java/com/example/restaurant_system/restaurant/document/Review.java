@@ -1,10 +1,13 @@
+
 package com.example.restaurant_system.restaurant.document;
 
 import com.example.restaurant_system.restaurant.model.Photo;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @Setter
@@ -14,8 +17,13 @@ public class Review {
     private String id;
     private String content;
     private Integer rating;
-    private LocalDateTime datePosted;
-    private LocalDateTime lastEdited;
+
+    @Field(type = FieldType.Date, format = {}, pattern = "epoch_millis")
+    private Instant datePosted;
+
+    @Field(type = FieldType.Date, format = {}, pattern = "epoch_millis")
+    private Instant lastEdited;
+
     private List<Photo> photos;
     private String writtenBy;
 
@@ -26,8 +34,8 @@ public class Review {
             String id,
             String content,
             Integer rating,
-            LocalDateTime datePosted,
-            LocalDateTime lastEdited,
+            Instant datePosted,
+            Instant lastEdited,
             List<Photo> photos,
             String writtenBy
     ) {
@@ -39,5 +47,4 @@ public class Review {
         this.photos = photos;
         this.writtenBy = writtenBy;
     }
-
 }

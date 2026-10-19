@@ -5,12 +5,14 @@ import com.example.restaurant_system.restaurant.document.Restaurant;
 import com.example.restaurant_system.restaurant.dto.RestaurantRequest;
 import com.example.restaurant_system.restaurant.dto.RestaurantResponse;
 import com.example.restaurant_system.restaurant.repository.RestaurantRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
 
+@Slf4j
 @Service
 public class RestaurantService {
 
